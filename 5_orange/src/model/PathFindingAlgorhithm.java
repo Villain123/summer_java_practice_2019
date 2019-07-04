@@ -20,7 +20,7 @@ public class PathFindingAlgorhithm {
         return path;
     }
 
-    int search(Vertex sourcePeak, Vertex sinkPeak) {
+    int search(Vertex sourcePeak, Vertex sinkPeak, Graph currGraph, ArrayList<Graph> graphs) {
         // cannot find a path from source to sink, algorithm stop;
         DFS objDFS = new DFS();
         while (objDFS.DFsearch(sourcePeak, sinkPeak)) {
@@ -42,7 +42,7 @@ public class PathFindingAlgorhithm {
                     current = e.start;
                 }
             }
-
+            graphs.add(currGraph);
         }
         int total_flow = 0;
 

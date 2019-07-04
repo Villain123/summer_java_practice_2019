@@ -10,7 +10,10 @@ public class Graph {
     }
 
     void addEdge(Vertex start, Vertex end, int capacity){
-        edges.add(new Edge(start, end, capacity));
+        Edge edg = new Edge(start, end, capacity);
+        edges.add(edg);
+        start.neighbours.add(edg);
+        end.neighbours.add(edg);
     }
 
     void addVertex(char newVertex){
