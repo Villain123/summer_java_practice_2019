@@ -13,6 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import model.Edge;
+import model.Vertex;
 
 /**
  *
@@ -26,23 +28,16 @@ public class MainWindow extends javax.swing.JFrame {
     GraphDisplayFrame graphDisplay;
     Controller controller;
     int step;
+
     public MainWindow() {
         initComponents();
         controller = new Controller();
         drawingPanel.setLayout(new GridLayout(1, 1));
         graphDisplay = new GraphDisplayFrame();
 
-//        try {
-//            controller.loadFile("test1.txt");
-//            graphDisplay.init(controller.graph);
-//            graphDisplay.repaint();
-//        } catch (IOException ex) {
-//            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
         graphDisplay.setBackground(Color.WHITE);
         drawingPanel.add(graphDisplay);
-
+        graphDisplay.init(controller.graph);
     }
 
     /**
@@ -118,9 +113,9 @@ public class MainWindow extends javax.swing.JFrame {
         lblNameAddV.setText("Name");
 
         btnAddVertex.setLabel("Add vertex");
-        btnAddVertex.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAddVertexMouseClicked(evt);
+        btnAddVertex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddVertexActionPerformed(evt);
             }
         });
 
@@ -154,9 +149,9 @@ public class MainWindow extends javax.swing.JFrame {
         btnAddVertex.getAccessibleContext().setAccessibleDescription("");
 
         btnAddEdge.setLabel("Add edge");
-        btnAddEdge.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAddEdgeMouseClicked(evt);
+        btnAddEdge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddEdgeActionPerformed(evt);
             }
         });
 
@@ -209,9 +204,9 @@ public class MainWindow extends javax.swing.JFrame {
         );
 
         btnDeleteVertex.setLabel("Delete Vertex");
-        btnDeleteVertex.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDeleteVertexMouseClicked(evt);
+        btnDeleteVertex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteVertexActionPerformed(evt);
             }
         });
 
@@ -244,9 +239,9 @@ public class MainWindow extends javax.swing.JFrame {
         );
 
         btnDeleteEdge.setLabel("Delete edge");
-        btnDeleteEdge.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDeleteEdgeMouseClicked(evt);
+        btnDeleteEdge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteEdgeActionPerformed(evt);
             }
         });
 
@@ -333,25 +328,25 @@ public class MainWindow extends javax.swing.JFrame {
         tpanelFunction.addTab("Construct", panelConstruct);
 
         btnRun.setLabel("Run");
-        btnRun.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnRunMouseClicked(evt);
+        btnRun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRunActionPerformed(evt);
             }
         });
 
         lblRunStatus.setText("Run Status");
 
         btnPrevStep.setText("Previous");
-        btnPrevStep.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPrevStepMouseClicked(evt);
+        btnPrevStep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrevStepActionPerformed(evt);
             }
         });
 
         btnNextStep.setText("Next");
-        btnNextStep.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnNextStepMouseClicked(evt);
+        btnNextStep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextStepActionPerformed(evt);
             }
         });
 
@@ -491,55 +486,17 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddVertexMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddVertexMouseClicked
-        // TODO add your handling code here:
-        String name = txtNameAddV.getText();
-    }//GEN-LAST:event_btnAddVertexMouseClicked
-
-    private void btnAddEdgeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddEdgeMouseClicked
-        // TODO add your handling code here:
-        String from = txtFromAddE.getText();
-        String to = txtToAddE.getText();
-        try {
-            int capacity = Integer.parseInt(txtCapacityAddE.getText());
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Capacity must be a number");
-            return;
-        }
-    }//GEN-LAST:event_btnAddEdgeMouseClicked
-
-    private void btnDeleteVertexMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteVertexMouseClicked
-        // TODO add your handling code here:
-        String name = txtNameDeleteV.getText();
-    }//GEN-LAST:event_btnDeleteVertexMouseClicked
-
-    private void btnDeleteEdgeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteEdgeMouseClicked
-        // TODO add your handling code here:
-        String id = txtIdDeleteE.getText();
-    }//GEN-LAST:event_btnDeleteEdgeMouseClicked
-
-    private void btnRunMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRunMouseClicked
-        // TODO add your handling code here:
-        long time = System.currentTimeMillis();
-        controller.process();
-        long duration = System.currentTimeMillis()-time;
-        lblRunStatus.setText("Run status: Completed in "+(duration/1000) + "s");
-        graphDisplay.repaint();
-        step = controller.getNumberOfStep();
-        reloadStepDisplay();
-    }//GEN-LAST:event_btnRunMouseClicked
-
-    void reloadStepDisplay(){
-        lblStep.setText(step+"/"+controller.getNumberOfStep());
+    void reloadStepDisplay() {
+        lblStep.setText(step + "/" + controller.getNumberOfStep());
     }
-    
-    private void btnPrevStepMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrevStepMouseClicked
 
-    }//GEN-LAST:event_btnPrevStepMouseClicked
+    void goToStep(int step) {
+        this.step = step;
+        this.reloadStepDisplay();
+        graphDisplay.loadStepGraph(controller.getStep(step));
+        graphDisplay.repaint();
+    }
 
-    private void btnNextStepMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNextStepMouseClicked
-
-    }//GEN-LAST:event_btnNextStepMouseClicked
 
     private void mnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLoadActionPerformed
         JFileChooser chooser = new JFileChooser();
@@ -576,6 +533,71 @@ public class MainWindow extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_mnSaveActionPerformed
+
+    private void btnPrevStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevStepActionPerformed
+        if (step > 1) {
+            step--;
+            goToStep(step);
+        }
+    }//GEN-LAST:event_btnPrevStepActionPerformed
+
+    private void btnNextStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextStepActionPerformed
+        if (step < controller.getNumberOfStep()) {
+            step++;
+            goToStep(step);
+        }
+    }//GEN-LAST:event_btnNextStepActionPerformed
+
+    private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunActionPerformed
+        try {
+            long time = System.currentTimeMillis();
+            controller.process();
+            long duration = System.currentTimeMillis() - time;
+            lblRunStatus.setText("Run status: Completed in " + (duration / 1000) + "s");
+            goToStep(controller.getNumberOfStep());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Graph invalid");
+            return;
+        }
+    }//GEN-LAST:event_btnRunActionPerformed
+
+    private void btnAddVertexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVertexActionPerformed
+        String content = txtNameAddV.getText();
+        // TODO: check if vertex with same name already exist
+        if(content.length()>0){
+            Vertex newV = controller.addVertex(content);
+            graphDisplay.addVertex(newV);
+        }
+        
+    }//GEN-LAST:event_btnAddVertexActionPerformed
+
+    private void btnAddEdgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEdgeActionPerformed
+        String from = txtFromAddE.getText();
+        String to = txtToAddE.getText();
+        int capacity;
+        try {
+            capacity = Integer.parseInt(txtCapacityAddE.getText());
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Capacity must be a number");
+            return;
+        }
+        try{
+            Edge newE = controller.addEdge(from, to, capacity);
+            graphDisplay.addEdge(newE);
+        }catch(VertexNotFoundException ex){
+            JOptionPane.showMessageDialog(this, "Vertex not found");
+            return;
+        }
+        
+    }//GEN-LAST:event_btnAddEdgeActionPerformed
+
+    private void btnDeleteVertexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteVertexActionPerformed
+        String name = txtNameDeleteV.getText();
+    }//GEN-LAST:event_btnDeleteVertexActionPerformed
+
+    private void btnDeleteEdgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteEdgeActionPerformed
+        String id = txtIdDeleteE.getText();
+    }//GEN-LAST:event_btnDeleteEdgeActionPerformed
 
     /**
      * @param args the command line arguments

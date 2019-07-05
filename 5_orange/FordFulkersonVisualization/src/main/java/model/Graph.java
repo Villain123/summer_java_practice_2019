@@ -53,15 +53,18 @@ public class Graph implements Serializable, Cloneable {
         this.sink = sink;
     }
 
-    public void addEdge(Vertex start, Vertex end, int capacity) {
+    public Edge addEdge(Vertex start, Vertex end, int capacity) {
         Edge edg = new Edge(start, end, capacity);
         edges.add(edg);
         start.getNeighbours().add(edg);
         end.getNeighbours().add(edg);
+        return edg;
     }
 
-    public void addVertex(char newVertex) {
-        vrtx.add(new Vertex(newVertex));
+    public Vertex addVertex(String newVertex) {
+        Vertex result = new Vertex(newVertex);
+        vrtx.add(result);
+        return result;
     }
 
     public int getTotalFlow() {
@@ -72,9 +75,9 @@ public class Graph implements Serializable, Cloneable {
         return total_flow;
     }
 
-    public Vertex getVertexByName(char name) {
+    public Vertex getVertexByName(String name) {
         for (Vertex v : getVrtx()) {
-            if (v.getName() == name) {
+            if (v.getName().equals(name)) {
                 return v;
             }
         }

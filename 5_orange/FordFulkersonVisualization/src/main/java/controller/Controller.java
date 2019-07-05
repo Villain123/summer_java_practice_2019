@@ -18,43 +18,55 @@ import model.Edge;
 import model.FordFulkerson;
 import model.Graph;
 import model.Vertex;
+import ui.VertexNotFoundException;
 
 /**
  *
  * @author duyenNH
  */
 public class Controller {
-
+    
     public Graph graph;
 
-    private LinkedList<Graph> result;
+    private LinkedList<Graph> result = null;
 
     public Controller() {
         this.graph = new Graph();
     }
 
-    public void addEdge(Vertex start, Vertex end, int capacity) {
-        graph.addEdge(start, end, capacity);
+    public Edge addEdge(String start, String end, int capacity) throws VertexNotFoundException {
+        Vertex v1 = graph.getVertexByName(start);
+        Vertex v2 = graph.getVertexByName(end);
+        if(v1==null || v2==null) throw new VertexNotFoundException();
+        return graph.addEdge(v1,v2, capacity);
     }
 
-    public void addVertex(char newVertex) {
-        graph.addVertex(newVertex);
+    public Vertex addVertex(String newVertex) {
+        return graph.addVertex(newVertex);
+    }
+    
+    public void deleteVertex(String v){
+        // TODO;
+    }
+    
+    public void deleteEdge(String start, String end){
+        // TODO;
+        Vertex v1 = graph.getVertexByName(start);
+        Vertex v2 = graph.getVertexByName(end);
+    
     }
 
     public void process() {
         result = FordFulkerson.process(graph, new DFS());
-        for(int i = 0;i<result.size();i++){
-            System.out.println(i+"  "+result.get(i).getTotalFlow());
-        }
     }
     
     public int getNumberOfStep(){
+        if(result == null || result.size()==0) return 0;
         return result.size();
     }
     public Graph getStep(int typeStep) {
-        if(typeStep == 0) return graph;
-        if (typeStep < result.size() && typeStep >= 0) {
-            return result.get(typeStep);
+        if (typeStep <= result.size() && typeStep > 0) {
+            return result.get(typeStep-1);
         } else {
             return null;
         }
@@ -92,22 +104,22 @@ public class Controller {
         
         int V = sc.nextInt();
         for (int i = 0; i < V; i++) {
-            graph.addVertex(sc.next().charAt(0));
+            graph.addVertex(sc.next());
         }
         int E = sc.nextInt();
         for (int i = 0; i < E; i++) {
-            Vertex start = graph.getVertexByName(sc.next().charAt(0));
-            Vertex end = graph.getVertexByName(sc.next().charAt(0));
+            Vertex start = graph.getVertexByName(sc.next());
+            Vertex end = graph.getVertexByName(sc.next());
             int capacity = sc.nextInt();
             graph.addEdge(start, end, capacity);
         }
-        char srcName = sc.next().charAt(0);
-        if (srcName != '#') {
+        String srcName = sc.next();
+        if (!srcName.equals("#")) {
             //Vertex src = graph.getVertexByName(srcName);
             graph.setSource(graph.getVertexByName(srcName));
         }
-        char sinkName = sc.next().charAt(0);
-        if (sinkName != '#') {
+        String sinkName = sc.next();
+        if (!sinkName.equals("#")) {
             graph.setSink(graph.getVertexByName(sinkName));
         }
         fr.close();

@@ -23,7 +23,7 @@ public class GraphVertex extends GraphElement {
 
     LinkedList<VertexPositionChangedListener> listeners;
     
-    Vertex data;
+    private Vertex data;
         //variables for drag and drop vertex
     private boolean dragging = false;
     private int mouseX = 0;
@@ -123,6 +123,16 @@ public class GraphVertex extends GraphElement {
         if(data!=null) return data.getName()+"";
         else return id+"";
     }
+
+    public Vertex getData() {
+        return data;
+    }
+
+    public void setData(Vertex data) {
+        this.data = data;
+    }
+    
+    
 
     
 }

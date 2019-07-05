@@ -51,32 +51,32 @@ public class ControllerTest {
         assertEquals(3, c.graph.getVrtx().size());
         //assertEquals(2, c.graph.getEdges().size());
         assertEquals(2, c.graph.getVrtx().get(1).getNeighbours().size());
-        assertEquals('A', c.graph.getSource().getName());
-        assertEquals('C', c.graph.getSink().getName());
+        assertEquals("A", c.graph.getSource().getName());
+        assertEquals("C", c.graph.getSink().getName());
         //fail("The test case is a prototype.");
     }    
       
     @org.junit.Test
     public void testIOFile() throws IOException{
         Controller c = new Controller(); 
-        c.graph.addVertex('A');
-        c.graph.addVertex('B');
-        c.graph.addVertex('C');
-        c.graph.addVertex('D');
-        c.graph.addVertex('E');
-        c.graph.addVertex('F');
+        c.graph.addVertex("A");
+        c.graph.addVertex("B");
+        c.graph.addVertex("C");
+        c.graph.addVertex("D");
+        c.graph.addVertex("E");
+        c.graph.addVertex("F");
         
-        c.graph.addEdge(c.graph.getVertexByName('A'), c.graph.getVertexByName('B'), 8);
-        c.graph.addEdge(c.graph.getVertexByName('A'), c.graph.getVertexByName('C'), 2);
-        c.graph.addEdge(c.graph.getVertexByName('B'), c.graph.getVertexByName('D'), 6);
-        c.graph.addEdge(c.graph.getVertexByName('C'), c.graph.getVertexByName('E'), 5);
-        c.graph.addEdge(c.graph.getVertexByName('D'), c.graph.getVertexByName('C'), 2);
-        c.graph.addEdge(c.graph.getVertexByName('E'), c.graph.getVertexByName('B'), 3);
-        c.graph.addEdge(c.graph.getVertexByName('D'), c.graph.getVertexByName('F'), 4);
-        c.graph.addEdge(c.graph.getVertexByName('E'), c.graph.getVertexByName('F'), 5);
+        c.graph.addEdge(c.graph.getVertexByName("A"), c.graph.getVertexByName("B"), 8);
+        c.graph.addEdge(c.graph.getVertexByName("A"), c.graph.getVertexByName("C"), 2);
+        c.graph.addEdge(c.graph.getVertexByName("B"), c.graph.getVertexByName("D"), 6);
+        c.graph.addEdge(c.graph.getVertexByName("C"), c.graph.getVertexByName("E"), 5);
+        c.graph.addEdge(c.graph.getVertexByName("D"), c.graph.getVertexByName("C"), 2);
+        c.graph.addEdge(c.graph.getVertexByName("E"), c.graph.getVertexByName("B"), 3);
+        c.graph.addEdge(c.graph.getVertexByName("D"), c.graph.getVertexByName("F"), 4);
+        c.graph.addEdge(c.graph.getVertexByName("E"), c.graph.getVertexByName("F"), 5);
         
-        c.graph.setSource(c.graph.getVertexByName('A'));
-        c.graph.setSink(c.graph.getVertexByName('F'));
+        c.graph.setSource(c.graph.getVertexByName("A"));
+        c.graph.setSink(c.graph.getVertexByName("F"));
         
         c.saveFile("test2.txt");
         
@@ -85,7 +85,7 @@ public class ControllerTest {
         c.loadFile("test2.txt");
         assertEquals(6, c.graph.getVrtx().size());   
         assertEquals(8, c.graph.getEdges().size());
-        assertEquals('F', c.graph.getVrtx().get(5).getName());
+        assertEquals("F", c.graph.getVrtx().get(5).getName());
                 
         //fail("The test case is a prototype.");
     }
@@ -97,7 +97,7 @@ public class ControllerTest {
         c.loadFile("test1.txt");
         assertEquals(4, c.graph.getVrtx().size());   
         assertEquals(6, c.graph.getEdges().size());
-        assertEquals('C', c.graph.getVrtx().get(2).getName());
+        assertEquals("C", c.graph.getVrtx().get(2).getName());
         
         c.process();
         assertEquals(2, c.graph.getTotalFlow()); 
@@ -108,30 +108,30 @@ public class ControllerTest {
     @org.junit.Test(timeout=1000)
     public void testProcess2() throws IOException{
         Controller c = new Controller(); 
-        c.graph.addVertex('A');
-        c.graph.addVertex('B');
-        c.graph.addVertex('C');
-        c.graph.addVertex('D');
-        c.graph.addVertex('E');
-        c.graph.addVertex('F');
+        c.graph.addVertex("A");
+        c.graph.addVertex("B");
+        c.graph.addVertex("C");
+        c.graph.addVertex("D");
+        c.graph.addVertex("E");
+        c.graph.addVertex("F");
         
-        c.graph.addEdge(c.graph.getVertexByName('A'), c.graph.getVertexByName('B'), 8);
-        c.graph.addEdge(c.graph.getVertexByName('A'), c.graph.getVertexByName('C'), 2);
-        c.graph.addEdge(c.graph.getVertexByName('B'), c.graph.getVertexByName('D'), 6);
-        c.graph.addEdge(c.graph.getVertexByName('C'), c.graph.getVertexByName('E'), 5);
-        c.graph.addEdge(c.graph.getVertexByName('D'), c.graph.getVertexByName('C'), 2);
-        c.graph.addEdge(c.graph.getVertexByName('E'), c.graph.getVertexByName('B'), 3);
-        c.graph.addEdge(c.graph.getVertexByName('D'), c.graph.getVertexByName('F'), 4);
-        c.graph.addEdge(c.graph.getVertexByName('E'), c.graph.getVertexByName('F'), 5);
+        c.graph.addEdge(c.graph.getVertexByName("A"), c.graph.getVertexByName("B"), 8);
+        c.graph.addEdge(c.graph.getVertexByName("A"), c.graph.getVertexByName("C"), 2);
+        c.graph.addEdge(c.graph.getVertexByName("B"), c.graph.getVertexByName("D"), 6);
+        c.graph.addEdge(c.graph.getVertexByName("C"), c.graph.getVertexByName("E"), 5);
+        c.graph.addEdge(c.graph.getVertexByName("D"), c.graph.getVertexByName("C"), 2);
+        c.graph.addEdge(c.graph.getVertexByName("E"), c.graph.getVertexByName("B"), 3);
+        c.graph.addEdge(c.graph.getVertexByName("D"), c.graph.getVertexByName("F"), 4);
+        c.graph.addEdge(c.graph.getVertexByName("E"), c.graph.getVertexByName("F"), 5);
         
-        c.graph.setSource(c.graph.getVertexByName('A'));
-        c.graph.setSink(c.graph.getVertexByName('F'));
+        c.graph.setSource(c.graph.getVertexByName("A"));
+        c.graph.setSink(c.graph.getVertexByName("F"));
         
         // TODO review the generated test code and remove the default call to fail.
         
         assertEquals(6, c.graph.getVrtx().size());   
         assertEquals(8, c.graph.getEdges().size());
-        assertEquals('F', c.graph.getVrtx().get(5).getName());
+        assertEquals("F", c.graph.getVrtx().get(5).getName());
         
         c.process();
         assertEquals(8, c.graph.getTotalFlow());

@@ -24,28 +24,49 @@ import model.Vertex;
  */
 public class GraphDisplayFrame extends JPanel {
 
-    HashMap<Character, GraphVertex> uiVMapping;
+    HashMap<String, GraphVertex> uiVMapping;
     //HashMap<Character, Vertex> contentVMapping;
 
-    LinkedList<GraphEdge> uiEList;
+    HashMap<Edge,GraphEdge> uiEList;
     //HashMap<Character, Edge> contentEMapping;
 
     public void init(Graph graph) {
         uiVMapping = new HashMap<>();
-        uiEList = new LinkedList<>();
+        uiEList = new HashMap<>();
         for (Vertex v : graph.getVrtx()) {
-            GraphVertex gv = new GraphVertex(this, (int) (Math.random() * 400), (int) (Math.random() * 400), v);
-            this.add(gv);
-            uiVMapping.put(v.getName(), gv);
+            addVertex(v);
         }
         for (Edge e : graph.getEdges()) {
-            char nameStart = e.getStart().getName();
-            char nameEnd = e.getEnd().getName();
+            addEdge(e);
+        }
+    }
+
+    public void addVertex(Vertex v){
+            GraphVertex gv = new GraphVertex(this, (int) (Math.random() * 400), (int) (Math.random() * 400), v);
+            this.add(gv);
+            uiVMapping.put(v.getName(), gv);        
+            repaint();
+    }
+    
+    public void addEdge(Edge e){
+            String nameStart = e.getStart().getName();
+            String nameEnd = e.getEnd().getName();
             GraphEdge ge = new GraphEdge(this, uiVMapping.get(nameStart), uiVMapping.get(nameEnd), e);
             this.add(ge);
-            uiEList.add(ge);
+            uiEList.put(e,ge);    
+            repaint();
+    }
+    public void loadStepGraph(Graph graph) {
+        for (Vertex v : graph.getVrtx()) {
+            uiVMapping.get(v.getName()).setData(v);
         }
-        this.repaint();
+        for (Edge e : graph.getEdges()) {
+//            char nameStart = e.getStart().getName();
+//            char nameEnd = e.getEnd().getName();
+//            GraphEdge ge = new GraphEdge(this, uiVMapping.get(nameStart), uiVMapping.get(nameEnd), e);
+//            this.add(ge);
+            uiEList.get(e).setData(e);
+        }
     }
 
     public GraphDisplayFrame() {

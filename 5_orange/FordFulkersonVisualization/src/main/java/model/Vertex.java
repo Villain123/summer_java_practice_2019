@@ -2,18 +2,19 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Vertex  implements Serializable{
-    private char name;
+    private String name;
     private Edge cameFrom;
     private ArrayList<Edge> neighbours;
     private Boolean visited;
 
-    public char getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(char name) {
+    public void setName(String name) {
         this.name = name;
     } 
 
@@ -41,7 +42,7 @@ public class Vertex  implements Serializable{
         this.visited = visited;
     }
     
-    public Vertex(char name) {
+    public Vertex(String name) {
         this.name = name;
         neighbours = new ArrayList();
         visited = false;
@@ -50,8 +51,8 @@ public class Vertex  implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 17 * hash + this.name;
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
