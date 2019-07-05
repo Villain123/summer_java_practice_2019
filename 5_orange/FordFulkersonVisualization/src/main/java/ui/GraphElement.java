@@ -6,24 +6,36 @@
 package ui;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 /**
  *
  * @author theph
  */
-public abstract class GraphElement {
+public abstract class GraphElement extends JComponent {
+
     private static int id_cur = 0;
     protected int id;
 
+    static final int radius = 20;
+    
     protected boolean selected;
+    
+    protected JPanel parent;
 
-    public GraphElement() {
+
+
+    public GraphElement(JPanel parent) {
+        super();
+        this.parent = parent;
         this.id = id_cur;
         id_cur++;
         selected = false;
     }
-    
-    public abstract void paint(Graphics g);
 
     @Override
     public String toString() {
@@ -46,6 +58,4 @@ public abstract class GraphElement {
         this.selected = selected;
     }
 
-
-    
 }

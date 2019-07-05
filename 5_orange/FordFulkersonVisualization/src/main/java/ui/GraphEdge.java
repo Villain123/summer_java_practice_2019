@@ -6,62 +6,65 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import javax.swing.JPanel;
 
 /**
  *
  * @author theph
  */
-public class GraphEdge extends GraphElement{
+public class GraphEdge extends GraphElement implements VertexPositionChangedListener{
 
-    private int x1,y1,x2,y2;
-
-    public GraphEdge(int x1, int y1, int x2, int y2) {
-        this.x1 = x1;
-        this.y1 = y1;
-        this.x2 = x2;
-        this.y2 = y2;
+    private GraphVertex v1, v2;
+    
+    public GraphEdge(JPanel parent, GraphVertex v1, GraphVertex v2) {
+        super(parent);
+//        int x = (v1.getX()<v2.getX()?v1.getX():v2.getX())+radius;
+//        int y = (v1.getY()<v2.getY()?v1.getY():v2.getY())+radius;
+//        
+//        int sizeX = Math.abs(v1.getX()-v2.getX());
+//        int sizeY = Math.abs(v1.getY()-v2.getY());
+//        
+//        this.setLocation(x, y);
+//        this.setSize(sizeX, sizeY);
+        this.v1 = v1;
+        this.v2 = v2;
+        v1.addVertexPositionChangedListener(this);
+        v2.addVertexPositionChangedListener(this);
+        recalculatePosition();
     }
     
+    public void recalculatePosition(){
+        int x = (v1.getX()<v2.getX()?v1.getX():v2.getX())+radius;
+        int y = (v1.getY()<v2.getY()?v1.getY():v2.getY())+radius;
+        
+        int sizeX = Math.abs(v1.getX()-v2.getX());
+        sizeX = Math.max(sizeX, 100);
+        
+        int sizeY = Math.abs(v1.getY()-v2.getY());
+        sizeY = Math.max(sizeY, 100);
+        
+        this.setLocation(x, y);
+        this.setSize(sizeX, sizeY);    
+    }
     @Override
-    public void paint(Graphics g) {
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         g.setColor(Color.black);
-        g.drawLine(x1, y1, x2, y2);
-        g.drawString(toString(), (x1 + x2) / 2, (y1 + y2) / 2);
-    }
-    
-    public int getX1() {
-        return x1;
-    }
-
-    public void setX1(int x1) {
-        this.x1 = x1;
+        g.drawLine(v1.getX()-getX()+radius, v1.getY()-getY()+radius, v2.getX()-getX()+radius, v2.getY()-getY()+radius);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        
+        int textX = (v1.getX() + v2.getX()) / 2 - getX() + radius;
+        int textY = (v1.getY() + v2.getY()) / 2 - getY() + radius;
+        if(textY < 20) textY +=20;
+        
+        g.drawString(toString(), textX, textY );
     }
 
-    public int getY1() {
-        return y1;
+    @Override
+    public void onPositionChanged(int newX, int newY) {
+        recalculatePosition();
+        parent.repaint();
     }
-
-    public void setY1(int y1) {
-        this.y1 = y1;
-    }
-
-    public int getX2() {
-        return x2;
-    }
-
-    public void setX2(int x2) {
-        this.x2 = x2;
-    }
-
-    public int getY2() {
-        return y2;
-    }
-
-    public void setY2(int y2) {
-        this.y2 = y2;
-    }
-    
-
-    
 }

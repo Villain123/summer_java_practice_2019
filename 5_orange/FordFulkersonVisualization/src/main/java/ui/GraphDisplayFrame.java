@@ -5,6 +5,7 @@
  */
 package ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -21,18 +22,14 @@ public class GraphDisplayFrame extends JPanel {
 
     public GraphDisplayFrame() {
         this.elements = new ArrayList<>();
-        this.elements.add(new GraphEdge(100, 100, 300, 200));
-        this.elements.add(new GraphVertex(100, 100));
-        this.elements.add(new GraphVertex(300, 200));
-    }
-
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g); //To change body of generated methods, choose Tools | Templates.
-
-        for (GraphElement ele : elements) {
-            ele.paint(g);
-        }
+        this.setLayout(null);
+        GraphVertex v1 = new GraphVertex(this,100, 100);
+        GraphVertex v2 = new GraphVertex(this,300, 200);
+        
+        this.add(v1);
+        this.add(v2);
+        this.add(new GraphEdge(this,v1,v2));
+        
     }
 
 }
