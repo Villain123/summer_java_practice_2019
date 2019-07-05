@@ -98,6 +98,8 @@ public class MainWindow extends javax.swing.JFrame {
         mnSave = new javax.swing.JMenuItem();
         separator1 = new javax.swing.JPopupMenu.Separator();
         mnExit = new javax.swing.JMenuItem();
+        mnAbout = new javax.swing.JMenu();
+        mnAboutProg = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -518,6 +520,18 @@ public class MainWindow extends javax.swing.JFrame {
 
         menuBar.add(mnFile);
 
+        mnAbout.setText("About");
+
+        mnAboutProg.setText("About");
+        mnAboutProg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnAboutProgActionPerformed(evt);
+            }
+        });
+        mnAbout.add(mnAboutProg);
+
+        menuBar.add(mnAbout);
+
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -672,6 +686,10 @@ public class MainWindow extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Completed");
     }//GEN-LAST:event_btnMarkSinkActionPerformed
 
+    private void mnAboutProgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAboutProgActionPerformed
+        new AboutDialog(this,true).setVisible(true);
+    }//GEN-LAST:event_mnAboutProgActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -733,6 +751,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel lblStep;
     private javax.swing.JLabel lblToAddE;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu mnAbout;
+    private javax.swing.JMenuItem mnAboutProg;
     private javax.swing.JMenuItem mnExit;
     private javax.swing.JMenu mnFile;
     private javax.swing.JMenuItem mnLoad;
