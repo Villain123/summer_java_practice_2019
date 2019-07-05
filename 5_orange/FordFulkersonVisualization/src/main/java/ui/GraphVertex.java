@@ -35,7 +35,7 @@ public class GraphVertex extends GraphElement {
         super(parent);
         this.data = data;
         this.setLocation(x, y);
-        this.setSize(radius * 2, radius * 2);
+        this.setSize(radius * 4, radius * 2);
         listeners = new LinkedList<>();
         
                 this.addMouseListener(new MouseListener() {

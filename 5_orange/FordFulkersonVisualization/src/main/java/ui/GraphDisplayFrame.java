@@ -61,10 +61,6 @@ public class GraphDisplayFrame extends JPanel {
             uiVMapping.get(v.getName()).setData(v);
         }
         for (Edge e : graph.getEdges()) {
-//            char nameStart = e.getStart().getName();
-//            char nameEnd = e.getEnd().getName();
-//            GraphEdge ge = new GraphEdge(this, uiVMapping.get(nameStart), uiVMapping.get(nameEnd), e);
-//            this.add(ge);
             uiEList.get(e).setData(e);
         }
     }

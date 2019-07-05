@@ -45,8 +45,17 @@ public class Controller {
         return graph.addVertex(newVertex);
     }
     
+    public void setSource(String name){
+        graph.setSource(graph.getVertexByName(name));
+    }
+    
+    public void setSink(String name){
+        graph.setSink(graph.getVertexByName(name));
+    }
+    
     public void deleteVertex(String v){
         // TODO;
+        
     }
     
     public void deleteEdge(String start, String end){

@@ -57,9 +57,9 @@ public class Edge implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 73 * hash + Objects.hashCode(this.start);
-        hash = 73 * hash + Objects.hashCode(this.end);
+        int hash = 5;
+        hash = 53 * hash + this.start.getName().hashCode();
+        hash = 53 * hash + this.end.getName().hashCode();
         return hash;
     }
 
@@ -75,13 +75,15 @@ public class Edge implements Serializable{
             return false;
         }
         final Edge other = (Edge) obj;
-        if (!Objects.equals(this.start, other.start)) {
+        if (!this.start.getName().equals(other.start.getName())) {
             return false;
         }
-        if (!Objects.equals(this.end, other.end)) {
+        if (!Objects.equals(this.end.getName(), other.end.getName())) {
             return false;
         }
         return true;
     }
+
+
     
 }

@@ -76,6 +76,12 @@ public class MainWindow extends javax.swing.JFrame {
         lblAddE = new javax.swing.JLabel();
         lblDeleteV = new javax.swing.JLabel();
         lblDeleteE = new javax.swing.JLabel();
+        lblMarkSS = new javax.swing.JLabel();
+        panelMarkSS = new javax.swing.JPanel();
+        btnMarkSource = new javax.swing.JButton();
+        lblNameMarkSS = new javax.swing.JLabel();
+        txtNameMarkSS = new javax.swing.JTextField();
+        btnMarkSink = new javax.swing.JButton();
         panelRun = new javax.swing.JPanel();
         btnRun = new javax.swing.JButton();
         lblRunStatus = new javax.swing.JLabel();
@@ -281,6 +287,53 @@ public class MainWindow extends javax.swing.JFrame {
 
         lblDeleteE.setText("Delete edge");
 
+        lblMarkSS.setText("Mark source/sink");
+
+        btnMarkSource.setText("Mark Source");
+        btnMarkSource.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMarkSourceActionPerformed(evt);
+            }
+        });
+
+        lblNameMarkSS.setText("Name");
+
+        btnMarkSink.setLabel("Mark Sink");
+        btnMarkSink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMarkSinkActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelMarkSSLayout = new javax.swing.GroupLayout(panelMarkSS);
+        panelMarkSS.setLayout(panelMarkSSLayout);
+        panelMarkSSLayout.setHorizontalGroup(
+            panelMarkSSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMarkSSLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelMarkSSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnMarkSource, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                    .addGroup(panelMarkSSLayout.createSequentialGroup()
+                        .addComponent(lblNameMarkSS)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtNameMarkSS))
+                    .addComponent(btnMarkSink, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelMarkSSLayout.setVerticalGroup(
+            panelMarkSSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMarkSSLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelMarkSSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNameMarkSS)
+                    .addComponent(txtNameMarkSS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMarkSource)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMarkSink)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout panelConstructLayout = new javax.swing.GroupLayout(panelConstruct);
         panelConstruct.setLayout(panelConstructLayout);
         panelConstructLayout.setHorizontalGroup(
@@ -291,16 +344,19 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(panelDeleteEdge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelAddVertex, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelAddEdge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConstructLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(panelDeleteVertex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelConstructLayout.createSequentialGroup()
                         .addGroup(panelConstructLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblAddV)
                             .addComponent(lblAddE)
                             .addComponent(lblDeleteV)
-                            .addComponent(lblDeleteE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(lblDeleteE)
+                            .addComponent(lblMarkSS))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConstructLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(panelConstructLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelDeleteVertex, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelMarkSS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         panelConstructLayout.setVerticalGroup(
@@ -322,7 +378,11 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(lblDeleteE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDeleteEdge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblMarkSS)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelMarkSS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         tpanelFunction.addTab("Construct", panelConstruct);
@@ -401,7 +461,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(lblRunStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelStepNav, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(332, Short.MAX_VALUE))
+                .addContainerGap(497, Short.MAX_VALUE))
         );
 
         tpanelFunction.addTab("Run", panelRun);
@@ -423,7 +483,7 @@ public class MainWindow extends javax.swing.JFrame {
             panelLogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLogLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrLog, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                .addComponent(scrLog, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -556,6 +616,7 @@ public class MainWindow extends javax.swing.JFrame {
             lblRunStatus.setText("Run status: Completed in " + (duration / 1000) + "s");
             goToStep(controller.getNumberOfStep());
         } catch (Exception ex) {
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Graph invalid");
             return;
         }
@@ -599,6 +660,18 @@ public class MainWindow extends javax.swing.JFrame {
         String id = txtIdDeleteE.getText();
     }//GEN-LAST:event_btnDeleteEdgeActionPerformed
 
+    private void btnMarkSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarkSourceActionPerformed
+        String name = txtNameMarkSS.getText();
+        controller.setSource(name);
+        JOptionPane.showMessageDialog(this, "Completed");
+    }//GEN-LAST:event_btnMarkSourceActionPerformed
+
+    private void btnMarkSinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarkSinkActionPerformed
+        String name = txtNameMarkSS.getText();
+        controller.setSink(name);
+        JOptionPane.showMessageDialog(this, "Completed");
+    }//GEN-LAST:event_btnMarkSinkActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -639,6 +712,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnAddVertex;
     private javax.swing.JButton btnDeleteEdge;
     private javax.swing.JButton btnDeleteVertex;
+    private javax.swing.JButton btnMarkSink;
+    private javax.swing.JButton btnMarkSource;
     private javax.swing.JButton btnNextStep;
     private javax.swing.JButton btnPrevStep;
     private javax.swing.JButton btnRun;
@@ -650,8 +725,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel lblDeleteV;
     private javax.swing.JLabel lblFromAddE;
     private javax.swing.JLabel lblIdDeleteE;
+    private javax.swing.JLabel lblMarkSS;
     private javax.swing.JLabel lblNameAddV;
     private javax.swing.JLabel lblNameDeleteV;
+    private javax.swing.JLabel lblNameMarkSS;
     private javax.swing.JLabel lblRunStatus;
     private javax.swing.JLabel lblStep;
     private javax.swing.JLabel lblToAddE;
@@ -666,6 +743,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel panelDeleteEdge;
     private javax.swing.JPanel panelDeleteVertex;
     private javax.swing.JPanel panelLog;
+    private javax.swing.JPanel panelMarkSS;
     private javax.swing.JPanel panelRun;
     private javax.swing.JPanel panelStepNav;
     private javax.swing.JScrollPane scrLog;
@@ -677,6 +755,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTextArea txtLog;
     private javax.swing.JTextField txtNameAddV;
     private javax.swing.JTextField txtNameDeleteV;
+    private javax.swing.JTextField txtNameMarkSS;
     private javax.swing.JTextField txtToAddE;
     // End of variables declaration//GEN-END:variables
 }
