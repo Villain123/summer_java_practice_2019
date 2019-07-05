@@ -3,14 +3,13 @@ package model;
 import java.util.ArrayList;
 
 public abstract class PathFindingAlgorhithm {
-    Path buildPath(Vertex sinkPeak)
+    Path buildPath(Graph graph)
     {
-        Path result = new Path(new ArrayList<Edge>(), Integer.MAX_VALUE);
+        Path result = new Path(new ArrayList<>(), Integer.MAX_VALUE);
         
-        Vertex current = sinkPeak;
-        
-        while (current.getCameFrom() != null) {
-            Vertex back = current.getCameFrom().getStart() == current ? current.getCameFrom().getEnd() : current.getCameFrom().getStart();
+        Vertex current = graph.getSink();
+        while (current.getCameFrom() != null && !current.equals(graph.getSource())) {
+            Vertex back = current.getCameFrom().getStart().equals(current) ? current.getCameFrom().getEnd() : current.getCameFrom().getStart();
 
             result.getPath().add(0,current.getCameFrom());
 

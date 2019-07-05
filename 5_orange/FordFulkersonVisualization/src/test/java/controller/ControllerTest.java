@@ -47,6 +47,7 @@ public class ControllerTest {
         // TODO review the generated test code and remove the default call to fail.
         
         c.loadFile("file.txt");
+        
         assertEquals(3, c.graph.getVrtx().size());
         //assertEquals(2, c.graph.getEdges().size());
         assertEquals(2, c.graph.getVrtx().get(1).getNeighbours().size());
@@ -88,7 +89,7 @@ public class ControllerTest {
                 
         //fail("The test case is a prototype.");
     }
-    @org.junit.Test
+    @org.junit.Test(timeout=1000)
     public void testProcess1() throws IOException{
         Controller c = new Controller(); 
         
@@ -104,7 +105,7 @@ public class ControllerTest {
         //fail("The test case is a prototype.");
     }
     
-    @org.junit.Test
+    @org.junit.Test(timeout=1000)
     public void testProcess2() throws IOException{
         Controller c = new Controller(); 
         c.graph.addVertex('A');
@@ -133,7 +134,7 @@ public class ControllerTest {
         assertEquals('F', c.graph.getVrtx().get(5).getName());
         
         c.process();
-        assertEquals(20, c.graph.getTotalFlow());
+        assertEquals(8, c.graph.getTotalFlow());
                 
         //fail("The test case is a prototype.");
     }

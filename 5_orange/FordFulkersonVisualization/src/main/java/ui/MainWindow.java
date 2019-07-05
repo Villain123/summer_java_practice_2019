@@ -5,8 +5,13 @@
  */
 package ui;
 
+import controller.Controller;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,11 +24,22 @@ public class MainWindow extends javax.swing.JFrame {
      * Creates new form MainWindow
      */
     GraphDisplayFrame graphDisplay;
-
+    Controller controller;
+    int step;
     public MainWindow() {
         initComponents();
+        controller = new Controller();
         drawingPanel.setLayout(new GridLayout(1, 1));
         graphDisplay = new GraphDisplayFrame();
+
+//        try {
+//            controller.loadFile("test1.txt");
+//            graphDisplay.init(controller.graph);
+//            graphDisplay.repaint();
+//        } catch (IOException ex) {
+//            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
         graphDisplay.setBackground(Color.WHITE);
         drawingPanel.add(graphDisplay);
 
@@ -39,10 +55,6 @@ public class MainWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         drawingPanel = new javax.swing.JPanel();
-        panelStepNav = new javax.swing.JPanel();
-        btnPrevStep = new javax.swing.JButton();
-        btnNextStep = new javax.swing.JButton();
-        lblStep = new javax.swing.JLabel();
         tpanelFunction = new javax.swing.JTabbedPane();
         panelConstruct = new javax.swing.JPanel();
         panelAddVertex = new javax.swing.JPanel();
@@ -72,6 +84,10 @@ public class MainWindow extends javax.swing.JFrame {
         panelRun = new javax.swing.JPanel();
         btnRun = new javax.swing.JButton();
         lblRunStatus = new javax.swing.JLabel();
+        panelStepNav = new javax.swing.JPanel();
+        btnPrevStep = new javax.swing.JButton();
+        btnNextStep = new javax.swing.JButton();
+        lblStep = new javax.swing.JLabel();
         panelLog = new javax.swing.JPanel();
         scrLog = new javax.swing.JScrollPane();
         txtLog = new javax.swing.JTextArea();
@@ -90,53 +106,11 @@ public class MainWindow extends javax.swing.JFrame {
         drawingPanel.setLayout(drawingPanelLayout);
         drawingPanelLayout.setHorizontalGroup(
             drawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 445, Short.MAX_VALUE)
         );
         drawingPanelLayout.setVerticalGroup(
             drawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        btnPrevStep.setText("Previous");
-        btnPrevStep.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPrevStepMouseClicked(evt);
-            }
-        });
-
-        btnNextStep.setText("Next");
-        btnNextStep.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnNextStepMouseClicked(evt);
-            }
-        });
-
-        lblStep.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStep.setText("step / total_step");
-        lblStep.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout panelStepNavLayout = new javax.swing.GroupLayout(panelStepNav);
-        panelStepNav.setLayout(panelStepNavLayout);
-        panelStepNavLayout.setHorizontalGroup(
-            panelStepNavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelStepNavLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnPrevStep)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblStep, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNextStep)
-                .addContainerGap())
-        );
-        panelStepNavLayout.setVerticalGroup(
-            panelStepNavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelStepNavLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelStepNavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPrevStep)
-                    .addComponent(btnNextStep)
-                    .addComponent(lblStep))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelAddVertex.setName(""); // NOI18N
@@ -367,6 +341,48 @@ public class MainWindow extends javax.swing.JFrame {
 
         lblRunStatus.setText("Run Status");
 
+        btnPrevStep.setText("Previous");
+        btnPrevStep.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPrevStepMouseClicked(evt);
+            }
+        });
+
+        btnNextStep.setText("Next");
+        btnNextStep.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNextStepMouseClicked(evt);
+            }
+        });
+
+        lblStep.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblStep.setText("step / total_step");
+        lblStep.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout panelStepNavLayout = new javax.swing.GroupLayout(panelStepNav);
+        panelStepNav.setLayout(panelStepNavLayout);
+        panelStepNavLayout.setHorizontalGroup(
+            panelStepNavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelStepNavLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnPrevStep)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblStep, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnNextStep)
+                .addContainerGap())
+        );
+        panelStepNavLayout.setVerticalGroup(
+            panelStepNavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelStepNavLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelStepNavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPrevStep)
+                    .addComponent(btnNextStep)
+                    .addComponent(lblStep))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout panelRunLayout = new javax.swing.GroupLayout(panelRun);
         panelRun.setLayout(panelRunLayout);
         panelRunLayout.setHorizontalGroup(
@@ -377,7 +393,8 @@ public class MainWindow extends javax.swing.JFrame {
                     .addGroup(panelRunLayout.createSequentialGroup()
                         .addComponent(lblRunStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 8, Short.MAX_VALUE))
-                    .addComponent(btnRun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelStepNav, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelRunLayout.setVerticalGroup(
@@ -387,7 +404,9 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(btnRun)
                 .addGap(18, 18, 18)
                 .addComponent(lblRunStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(383, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelStepNav, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(332, Short.MAX_VALUE))
         );
 
         tpanelFunction.addTab("Run", panelRun);
@@ -418,26 +437,26 @@ public class MainWindow extends javax.swing.JFrame {
         mnFile.setText("File");
 
         mnLoad.setText("Load");
-        mnLoad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mnLoadMouseClicked(evt);
+        mnLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnLoadActionPerformed(evt);
             }
         });
         mnFile.add(mnLoad);
 
         mnSave.setText("Save");
-        mnSave.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mnSaveMouseClicked(evt);
+        mnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnSaveActionPerformed(evt);
             }
         });
         mnFile.add(mnSave);
         mnFile.add(separator1);
 
         mnExit.setText("Exit");
-        mnExit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mnExitMouseClicked(evt);
+        mnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnExitActionPerformed(evt);
             }
         });
         mnFile.add(mnExit);
@@ -452,9 +471,7 @@ public class MainWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(drawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelStepNav, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(drawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tpanelFunction, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -465,10 +482,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tpanelFunction)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(drawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelStepNav, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(drawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -506,29 +520,62 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void btnRunMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRunMouseClicked
         // TODO add your handling code here:
-        
+        long time = System.currentTimeMillis();
+        controller.process();
+        long duration = System.currentTimeMillis()-time;
+        lblRunStatus.setText("Run status: Completed in "+(duration/1000) + "s");
+        graphDisplay.repaint();
+        step = controller.getNumberOfStep();
+        reloadStepDisplay();
     }//GEN-LAST:event_btnRunMouseClicked
 
+    void reloadStepDisplay(){
+        lblStep.setText(step+"/"+controller.getNumberOfStep());
+    }
+    
     private void btnPrevStepMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrevStepMouseClicked
-        
+
     }//GEN-LAST:event_btnPrevStepMouseClicked
 
     private void btnNextStepMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNextStepMouseClicked
-        
+
     }//GEN-LAST:event_btnNextStepMouseClicked
 
-    private void mnLoadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnLoadMouseClicked
-        
-    }//GEN-LAST:event_mnLoadMouseClicked
+    private void mnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLoadActionPerformed
+        JFileChooser chooser = new JFileChooser();
+//        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+//                "JPG & GIF Images", "jpg", "gif");
+//        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            try {
+                controller.loadFile(chooser.getSelectedFile().getAbsolutePath());
+                graphDisplay.init(controller.graph);
+                graphDisplay.repaint();
+            } catch (IOException ex) {
+                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_mnLoadActionPerformed
 
-    private void mnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnSaveMouseClicked
-        
-    }//GEN-LAST:event_mnSaveMouseClicked
-
-    private void mnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnExitMouseClicked
-        
+    private void mnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnExitActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_mnExitMouseClicked
+    }//GEN-LAST:event_mnExitActionPerformed
+
+    private void mnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSaveActionPerformed
+        JFileChooser chooser = new JFileChooser();
+//        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+//                "JPG & GIF Images", "jpg", "gif");
+//        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            try {
+                controller.saveFile(chooser.getSelectedFile().getName());
+            } catch (IOException ex) {
+                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_mnSaveActionPerformed
 
     /**
      * @param args the command line arguments

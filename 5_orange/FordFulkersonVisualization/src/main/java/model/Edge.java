@@ -1,6 +1,8 @@
 package model;
 
-public class Edge {
+import java.io.Serializable;
+
+public class Edge implements Serializable{
     private Vertex start;
     private Vertex end;
     private int flow;
@@ -46,7 +48,7 @@ public class Edge {
     }
 
     public int residualFlow(Vertex from) {
-        if (from == start)
+        if (from.equals(start))
             return capacity - flow;
         else
             return flow;

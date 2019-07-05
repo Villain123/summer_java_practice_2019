@@ -42,13 +42,17 @@ public class Controller {
     }
 
     public void process() {
-        result = FordFulkerson.process(graph, new BFS());
+        result = FordFulkerson.process(graph, new DFS());
+        for(int i = 0;i<result.size();i++){
+            System.out.println(i+"  "+result.get(i).getTotalFlow());
+        }
     }
     
     public int getNumberOfStep(){
         return result.size();
     }
     public Graph getStep(int typeStep) {
+        if(typeStep == 0) return graph;
         if (typeStep < result.size() && typeStep >= 0) {
             return result.get(typeStep);
         } else {

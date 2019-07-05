@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
 import javax.swing.JPanel;
+import model.Vertex;
 
 /**
  *
@@ -21,7 +22,8 @@ import javax.swing.JPanel;
 public class GraphVertex extends GraphElement {
 
     LinkedList<VertexPositionChangedListener> listeners;
-
+    
+    Vertex data;
         //variables for drag and drop vertex
     private boolean dragging = false;
     private int mouseX = 0;
@@ -29,8 +31,9 @@ public class GraphVertex extends GraphElement {
     private int dragStartX = 0;
     private int dragStartY = 0;
     
-    public GraphVertex(JPanel parent, int x, int y) {
+    public GraphVertex(JPanel parent, int x, int y, Vertex data) {
         super(parent);
+        this.data = data;
         this.setLocation(x, y);
         this.setSize(radius * 2, radius * 2);
         listeners = new LinkedList<>();
@@ -115,4 +118,11 @@ public class GraphVertex extends GraphElement {
         g.drawString(toString(), radius, radius);
     }
 
+    @Override
+    public String toString() {
+        if(data!=null) return data.getName()+"";
+        else return id+"";
+    }
+
+    
 }

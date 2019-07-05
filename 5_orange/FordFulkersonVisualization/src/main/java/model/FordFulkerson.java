@@ -8,10 +8,11 @@ public class FordFulkerson {
     public static LinkedList<Graph> process(Graph graph, PathFindingAlgorhithm pathFinder) {
         // cannot find a path from source to sink, algorithm stop;
         LinkedList<Graph> result = new LinkedList<>() ;
+        result.add(graph.clone());
         while (pathFinder.search(graph.getSource(), graph.getSink())) {
             
             //Trace back from sink to get the path;
-            Path path = pathFinder.buildPath(graph.getSink());
+            Path path = pathFinder.buildPath(graph);
             
             int cf_min = path.getResidualFlowMin();
             
@@ -28,7 +29,7 @@ public class FordFulkerson {
                 }
             }
             // TODO: clone the graph
-            result.add(graph);
+            result.add(graph.clone());
         }
         return result;
     }

@@ -8,7 +8,7 @@ public class DFS extends PathFindingAlgorhithm{
         }
         for (Edge e : sourcePeak.getNeighbours()) {
             if (e.residualFlow(sourcePeak) > 0) {
-                Vertex other = e.getEnd() == sourcePeak ? e.getStart() : e.getEnd();
+                Vertex other = e.getEnd().equals(sourcePeak) ? e.getStart() : e.getEnd();
                 if (!other.isVisited()) {
                     other.setVisited(true);
                     other.setCameFrom(e);
