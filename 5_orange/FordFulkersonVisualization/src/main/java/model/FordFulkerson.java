@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class FordFulkerson {
 
-    static LinkedList<Graph> process(Graph graph, PathFindingAlgorhithm pathFinder) {
+    public static LinkedList<Graph> process(Graph graph, PathFindingAlgorhithm pathFinder) {
         // cannot find a path from source to sink, algorithm stop;
         LinkedList<Graph> result = new LinkedList<>() ;
         while (pathFinder.search(graph.getSource(), graph.getSink())) {
@@ -17,20 +17,19 @@ public class FordFulkerson {
             
             Vertex current = graph.getSource();
             for (Edge e : path.getPath()) {
-                if (e.start == current) {
+                if (e.getStart() == current) {
                     // f(u,v) - arc in correct direction
-                    e.flow += cf_min;
-                    current = e.end;
+                    e.setFlow( e.getFlow() + cf_min);
+                    current = e.getEnd();
                 } else {
                     //f(v,u) - arc in opposite direction
-                    e.flow -= cf_min;
-                    current = e.start;
+                    e.setFlow( e.getFlow() - cf_min);
+                    current = e.getStart();
                 }
             }
             // TODO: clone the graph
             result.add(graph);
         }
-
         return result;
     }
 }

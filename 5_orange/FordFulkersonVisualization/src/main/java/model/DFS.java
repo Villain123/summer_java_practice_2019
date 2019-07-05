@@ -6,14 +6,14 @@ public class DFS extends PathFindingAlgorhithm{
         if (sourcePeak == sinkPeak) {
             return true;
         }
-        for (Edge e : sourcePeak.neighbours) {
+        for (Edge e : sourcePeak.getNeighbours()) {
             if (e.residualFlow(sourcePeak) > 0) {
-                Vertex other = e.end == sourcePeak ? e.start : e.end;
-                if (!other.visited) {
-                    other.visited = true;
-                    other.cameFrom = e;
+                Vertex other = e.getEnd() == sourcePeak ? e.getStart() : e.getEnd();
+                if (!other.isVisited()) {
+                    other.setVisited(true);
+                    other.setCameFrom(e);
                     boolean reached = search(other, sinkPeak);
-                    other.visited = false;
+                    other.setVisited(false);
                     if (reached) {
                         return true;
                     }

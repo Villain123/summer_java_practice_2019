@@ -3,9 +3,26 @@ package model;
 import java.util.ArrayList;
 
 public class Graph {
-    ArrayList<Edge> edges;
-    ArrayList<Vertex> vrtx;
-    
+
+    private ArrayList<Edge> edges;
+    private ArrayList<Vertex> vrtx;
+
+    public ArrayList<Edge> getEdges() {
+        return edges;
+    }
+
+    public void setEdges(ArrayList<Edge> edges) {
+        this.edges = edges;
+    }
+
+    public ArrayList<Vertex> getVrtx() {
+        return vrtx;
+    }
+
+    public void setVrtx(ArrayList<Vertex> vrtx) {
+        this.vrtx = vrtx;
+    }
+
     private Vertex source;
     private Vertex sink;
 
@@ -30,22 +47,31 @@ public class Graph {
         this.sink = sink;
     }
 
-    void addEdge(Vertex start, Vertex end, int capacity){
+    public void addEdge(Vertex start, Vertex end, int capacity) {
         Edge edg = new Edge(start, end, capacity);
         edges.add(edg);
-        start.neighbours.add(edg);
-        end.neighbours.add(edg);
+        start.getNeighbours().add(edg);
+        end.getNeighbours().add(edg);
     }
 
-    void addVertex(char newVertex){
+    public void addVertex(char newVertex) {
         vrtx.add(new Vertex(newVertex));
     }
-    
-    int getTotalFlow(){
+
+    public int getTotalFlow() {
         int total_flow = 0;
-        for (Edge e : this.source.neighbours) {
-            total_flow += e.flow;
+        for (Edge e : this.source.getNeighbours()) {
+            total_flow += e.getFlow();
         }
         return total_flow;
+    }
+
+    public Vertex getVertexByName(char name) {
+        for (Vertex v : getVrtx()) {
+            if (v.getName() == name) {
+                return v;
+            }
+        }
+        return null;
     }
 }

@@ -20,9 +20,9 @@ public class BFS extends PathFindingAlgorhithm{
                 return true;
             }
 
-            for (Edge e : current.neighbours) {
+            for (Edge e : current.getNeighbours()) {
                 if (e.residualFlow(current) > 0) {
-                    Vertex other = e.end == current ? e.start : e.end;
+                    Vertex other = e.getEnd() == current ? e.getStart() : e.getEnd();
 
                     if (closed_set.indexOf(other) != closed_set.size()-1) {
                         // Already processed (in closed set)
@@ -32,7 +32,7 @@ public class BFS extends PathFindingAlgorhithm{
                     if (open_set.indexOf(other) == open_set.size()-1) {
                         // not in open set
                         open_set.add(other);
-                        other.cameFrom = e;
+                        other.setCameFrom(e);
                     }
                 }
             }

@@ -9,18 +9,17 @@ public abstract class PathFindingAlgorhithm {
         
         Vertex current = sinkPeak;
         
-        while (current.cameFrom != null) {
-            Vertex back = current.cameFrom.start == current ? current.cameFrom.end : current.cameFrom.start;
+        while (current.getCameFrom() != null) {
+            Vertex back = current.getCameFrom().getStart() == current ? current.getCameFrom().getEnd() : current.getCameFrom().getStart();
 
-            result.getPath().add(0,current.cameFrom);
+            result.getPath().add(0,current.getCameFrom());
 
-            int cfp = current.cameFrom.residualFlow(back);
+            int cfp = current.getCameFrom().residualFlow(back);
             result.setResidualFlowMin(result.getResidualFlowMin() > cfp ? cfp : result.getResidualFlowMin());
 
             // clear cameFrom field for next loop
-            current.cameFrom = null;
+            current.setCameFrom(null);
             current = back;
-
         }
         return result;
     }
