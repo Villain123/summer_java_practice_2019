@@ -11,9 +11,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 import model.BFS;
 import model.DFS;
+import model.DeleteVertexActionResult;
 import model.Edge;
 import model.FordFulkerson;
 import model.Graph;
@@ -53,16 +55,17 @@ public class Controller {
         graph.setSink(graph.getVertexByName(name));
     }
     
-    public void deleteVertex(String v){
-        // TODO;
+    public DeleteVertexActionResult deleteVertex(String v) throws VertexNotFoundException{
+        return graph.deleteVertex(graph.getVertexByName(v));
         
     }
     
-    public void deleteEdge(String start, String end){
+    public void deleteEdge(String start, String end) throws VertexNotFoundException{
         // TODO;
         Vertex v1 = graph.getVertexByName(start);
         Vertex v2 = graph.getVertexByName(end);
     
+        graph.deleteEdge(v1, v2);
     }
 
     public void process() {

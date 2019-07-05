@@ -9,10 +9,12 @@ import controller.Controller;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import model.DeleteVertexActionResult;
 import model.Edge;
 import model.Vertex;
 
@@ -70,8 +72,10 @@ public class MainWindow extends javax.swing.JFrame {
         txtNameDeleteV = new javax.swing.JTextField();
         panelDeleteEdge = new javax.swing.JPanel();
         btnDeleteEdge = new javax.swing.JButton();
-        lblIdDeleteE = new javax.swing.JLabel();
-        txtIdDeleteE = new javax.swing.JTextField();
+        lblFromDeleteE = new javax.swing.JLabel();
+        txtFromDeleteE = new javax.swing.JTextField();
+        lblToDeleteE = new javax.swing.JLabel();
+        txtToDeleteE = new javax.swing.JTextField();
         lblAddV = new javax.swing.JLabel();
         lblAddE = new javax.swing.JLabel();
         lblDeleteV = new javax.swing.JLabel();
@@ -181,10 +185,10 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGroup(panelAddEdgeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblFromAddE)
                             .addComponent(lblToAddE))
-                        .addGap(18, 18, 18)
+                        .addGap(28, 28, 28)
                         .addGroup(panelAddEdgeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFromAddE)
-                            .addComponent(txtToAddE)))
+                            .addComponent(txtToAddE)
+                            .addComponent(txtFromAddE)))
                     .addGroup(panelAddEdgeLayout.createSequentialGroup()
                         .addComponent(lblCapacityAddE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -226,12 +230,12 @@ public class MainWindow extends javax.swing.JFrame {
             panelDeleteVertexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDeleteVertexLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelDeleteVertexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDeleteVertex, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                .addGroup(panelDeleteVertexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnDeleteVertex, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelDeleteVertexLayout.createSequentialGroup()
                         .addComponent(lblNameDeleteV)
                         .addGap(18, 18, 18)
-                        .addComponent(txtNameDeleteV)))
+                        .addComponent(txtNameDeleteV, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panelDeleteVertexLayout.setVerticalGroup(
@@ -253,7 +257,10 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        lblIdDeleteE.setText("Id");
+        lblFromDeleteE.setText("From");
+        lblFromDeleteE.setToolTipText("");
+
+        lblToDeleteE.setText("To");
 
         javax.swing.GroupLayout panelDeleteEdgeLayout = new javax.swing.GroupLayout(panelDeleteEdge);
         panelDeleteEdge.setLayout(panelDeleteEdgeLayout);
@@ -262,11 +269,15 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(panelDeleteEdgeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDeleteEdgeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDeleteEdge, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDeleteEdge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelDeleteEdgeLayout.createSequentialGroup()
-                        .addComponent(lblIdDeleteE)
+                        .addGroup(panelDeleteEdgeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFromDeleteE)
+                            .addComponent(lblToDeleteE))
                         .addGap(18, 18, 18)
-                        .addComponent(txtIdDeleteE)))
+                        .addGroup(panelDeleteEdgeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtToDeleteE)
+                            .addComponent(txtFromDeleteE))))
                 .addContainerGap())
         );
         panelDeleteEdgeLayout.setVerticalGroup(
@@ -274,11 +285,15 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDeleteEdgeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDeleteEdgeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblIdDeleteE)
-                    .addComponent(txtIdDeleteE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblFromDeleteE)
+                    .addComponent(txtFromDeleteE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDeleteEdgeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblToDeleteE)
+                    .addComponent(txtToDeleteE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDeleteEdge)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         lblAddV.setText("Add vertex");
@@ -314,12 +329,12 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(panelMarkSSLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelMarkSSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnMarkSource, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                     .addGroup(panelMarkSSLayout.createSequentialGroup()
                         .addComponent(lblNameMarkSS)
                         .addGap(18, 18, 18)
                         .addComponent(txtNameMarkSS))
-                    .addComponent(btnMarkSink, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE))
+                    .addComponent(btnMarkSource, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMarkSink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelMarkSSLayout.setVerticalGroup(
@@ -346,6 +361,9 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(panelDeleteEdge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelAddVertex, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelAddEdge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConstructLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(panelDeleteVertex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelConstructLayout.createSequentialGroup()
                         .addGroup(panelConstructLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblAddV)
@@ -354,11 +372,7 @@ public class MainWindow extends javax.swing.JFrame {
                             .addComponent(lblDeleteE)
                             .addComponent(lblMarkSS))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConstructLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(panelConstructLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelDeleteVertex, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(panelMarkSS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(panelMarkSS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelConstructLayout.setVerticalGroup(
@@ -380,11 +394,11 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(lblDeleteE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDeleteEdge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblMarkSS)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelMarkSS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         tpanelFunction.addTab("Construct", panelConstruct);
@@ -668,10 +682,24 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void btnDeleteVertexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteVertexActionPerformed
         String name = txtNameDeleteV.getText();
+        try {
+            DeleteVertexActionResult result = controller.deleteVertex(name);
+            graphDisplay.deleteVertex(result.getDeleted());
+            graphDisplay.deleteEdges(result.getAffectedEdges());
+        } catch (VertexNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDeleteVertexActionPerformed
 
     private void btnDeleteEdgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteEdgeActionPerformed
-        String id = txtIdDeleteE.getText();
+        String from = txtFromDeleteE.getText();
+        String to = txtToDeleteE.getText();
+        
+        try {
+            controller.deleteEdge(from, to);
+        } catch (VertexNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDeleteEdgeActionPerformed
 
     private void btnMarkSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarkSourceActionPerformed
@@ -742,7 +770,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel lblDeleteE;
     private javax.swing.JLabel lblDeleteV;
     private javax.swing.JLabel lblFromAddE;
-    private javax.swing.JLabel lblIdDeleteE;
+    private javax.swing.JLabel lblFromDeleteE;
     private javax.swing.JLabel lblMarkSS;
     private javax.swing.JLabel lblNameAddV;
     private javax.swing.JLabel lblNameDeleteV;
@@ -750,6 +778,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel lblRunStatus;
     private javax.swing.JLabel lblStep;
     private javax.swing.JLabel lblToAddE;
+    private javax.swing.JLabel lblToDeleteE;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu mnAbout;
     private javax.swing.JMenuItem mnAboutProg;
@@ -771,11 +800,12 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tpanelFunction;
     private javax.swing.JTextField txtCapacityAddE;
     private javax.swing.JTextField txtFromAddE;
-    private javax.swing.JTextField txtIdDeleteE;
+    private javax.swing.JTextField txtFromDeleteE;
     private javax.swing.JTextArea txtLog;
     private javax.swing.JTextField txtNameAddV;
     private javax.swing.JTextField txtNameDeleteV;
     private javax.swing.JTextField txtNameMarkSS;
     private javax.swing.JTextField txtToAddE;
+    private javax.swing.JTextField txtToDeleteE;
     // End of variables declaration//GEN-END:variables
 }
